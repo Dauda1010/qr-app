@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPARKO Parking Ticket</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <h1>OPARKO</h1>
+        <nav>
+            <a href="#" id="login">Login</a>
+            <a href="#" id="purchase">Purchase Ticket</a>
+        </nav>
+    </header>
+
+    <!-- Map Section -->
+    <section id="map-section">
+        <h2>Parking Location</h2>
+        <div id="map"></div>
+    </section>
+
+    <!-- Parking Form -->
+    <section id="form-section">
+        <h2>Enter Details</h2>
+        <form id="parking-form">
+            <label for="license-plate">License Plate</label>
+            <input type="text" id="license-plate" placeholder="Enter DK plate e.g. AB12345" required>
+
+            <label for="parking-time">Select Parking Time</label>
+            <div class="time-selector">
+                <div class="wheel" id="hour-wheel">Hours</div>
+                <div class="wheel" id="minute-wheel">Minutes</div>
+            </div>
+
+            <label for="mobilepay">MobilePay Number</label>
+            <input type="text" id="mobilepay" placeholder="Enter phone number" required>
+
+            <button type="button" id="pay-btn">Pay with MobilePay</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+    <!-- Google Maps script -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtnwjS0_J7DhaaVfJuye_zMk3XcUaaPsg&callback=initMap"></script>
+</body>
+</html>
