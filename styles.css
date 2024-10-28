@@ -36,14 +36,18 @@ nav a {
 }
 
 .wheel {
-    width: 80px;
-    height: 80px;
+    width: 120px; /* Updated size for better thumb accessibility */
+    height: 120px;
     border: 2px solid #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.5em; /* Larger font for readability */
     color: #002E48;
-    background: white;
+    background-color: white;
     cursor: pointer;
+    user-select: none; /* Prevents text selection when dragging */
+    touch-action: none; /* Improves touch interaction */
 }
+
