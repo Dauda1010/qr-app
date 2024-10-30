@@ -4,46 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OPARKO Parking Ticket</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <header>
-        <h1>OPARKO</h1>
-        <nav>
-            <a href="#" id="login">Login</a>
-            <a href="#" id="purchase">Purchase Ticket</a>
-        </nav>
-    </header>
+    
+    <!-- Navbar Icon for opening the menu -->
+    <div id="menu-icon" class="menu-icon">&#9776;</div>
 
-    <!-- Map Section -->
-    <section id="map-section">
-        <h2>Parking Location</h2>
-        <div id="map"></div>
-    </section>
+    <!-- Sidebar Navbar -->
+    <div id="sidebar" class="sidebar">
+        <button id="close-sidebar" class="close-btn">&times;</button>
+        <h3>Login</h3>
+        <input type="text" id="login-phone" class="form-control mb-2" placeholder="Phone Number" required>
+        <input type="password" id="login-password" class="form-control mb-2" placeholder="Password" required>
+        <button id="login-btn" class="btn btn-primary">Login</button>
+        <div id="login-validation-message" class="validation-message"></div>
+    </div>
 
-    <!-- Parking Form -->
-    <section id="form-section">
-        <h2>Enter Details</h2>
-        <form id="parking-form">
-            <label for="license-plate">License Plate</label>
-            <input type="text" id="license-plate" placeholder="Enter DK plate e.g. AB12345" required>
+    <div class="container">
+        <!-- Navigation -->
+        <header class="text-center my-3">
+            <h1 class="display-4">OPARKO</h1>
+            <nav class="d-flex justify-content-around">
+                <a href="#" id="login" class="btn btn-link">Login</a>
+                <a href="#" id="purchase" class="btn btn-link">Purchase Ticket</a>
+                <a href="#" id="register-navbar" class="btn btn-link">Register</a> <!-- New Register button in Navbar -->
+            </nav>
+        </header>
 
-            <label for="parking-time">Select Parking Time</label>
-            <div class="time-selector">
-                <div class="wheel" id="hour-wheel">Hours</div>
-                <div class="wheel" id="minute-wheel">Minutes</div>
-            </div>
+        <!-- Map Section -->
+        <section id="map-section" class="mb-4">
+            <h2 class="h4 text-center">Parking Location</h2>
+            <div id="map" class="map-container" style="height: 400px;"></div>
+        </section>
 
-            <label for="mobilepay">MobilePay Number</label>
-            <input type="text" id="mobilepay" placeholder="Enter phone number" required>
+        <!-- Parking Form -->
+        <section id="form-section">
+            <h2 class="h4 text-center">Enter Details</h2>
+            <form id="parking-form" class="text-center">
+                <div class="form-group">
+                    <label for="license-plate">License Plate</label>
+                    <input type="text" id="license-plate" class="form-control" placeholder="Enter DK plate e.g. AB12345" required>
+                    <button type="button" id="check-plate" class="btn btn-secondary mt-2">Check License Plate</button>
+                    <div id="plate-validation-message" class="text-danger mt-2" style="display: none;"></div>
+                </div>
 
-            <button type="button" id="pay-btn">Pay with MobilePay</button>
-        </form>
-    </section>
+                <!-- Select Parking Time -->
+                <label>Select Parking Time</label>
+                <div class="d-flex justify-content-center my-3">
+                    <select id="quick-time" class="form-control mx-2">
+                        <option value="">Quick Parking Time</option>
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">1 hour</option>
+                    </select>
+                    <button type="button" id="reset-time" class="btn btn-secondary mx-2">Reset Time</button>
+                </div>
 
+                <!-- Time Wheels for Hour and Minute Selection -->
+                <div class="time-selector d-flex justify-content-center my-3">
+                    <div class="wheel mr-2" id="hour-wheel">0 Hours</div>
+                    <div class="wheel ml-2" id="minute-wheel">0 Minutes</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobilepay">MobilePay Number</label>
+                    <input type="text" id="mobilepay" class="form-control" placeholder="Enter phone number" required>
+                </div>
+
+                <button type="button" id="pay-btn" class="btn btn-primary btn-block">Pay with MobilePay</button>
+            </form>
+        </section>
+    </div>
+    
+    <!-- Register Button outside the form -->
+    <button id="register-btn" class="btn btn-link">Register</button>
+
+   <!-- Popup Form for User Registration -->
+<div id="register-popup" class="popup-form">
+    <form id="register-form">
+        <h3>Register New User</h3> <!-- Updated title -->
+        <input type="text" id="register-name" placeholder="Name" required>
+        <input type="text" id="register-phone" placeholder="Phone Number" required>
+        <input type="email" id="register-email" placeholder="Email" required>
+        <input type="text" id="register-license" placeholder="License Plate" required>
+        <input type="password" id="register-password" placeholder="Password" required> <!-- New password field -->
+        <div class="button-container">
+            <button type="submit" class="btn-register">Register</button>
+            <button type="button" id="close-popup" class="btn-close">Close</button>
+        </div>
+        <div id="register-validation-message" class="validation-message"></div>
+    </form>
+</div>
+
+    <!-- Your custom JavaScript file -->
     <script src="script.js"></script>
-    <!-- Google Maps script -->
+    
+    <!-- Google Maps JavaScript API -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtnwjS0_J7DhaaVfJuye_zMk3XcUaaPsg&callback=initMap"></script>
 </body>
 </html>
