@@ -1,7 +1,7 @@
 /* Basic styling inspired by OPARKO colors */
 body {
     font-family: Arial, sans-serif;
-    background-color: #002E48;
+    background: linear-gradient(135deg, #002E48, #004C6D);
     color: white;
     margin: 0;
 }
@@ -12,42 +12,371 @@ header {
     text-align: center;
 }
 
+/* Registration Popup Styling */
+#register-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 80%; /* Adjusted for mobile responsiveness */
+    max-width: 300px; /* Max width for larger screens */
+}
+
+#register-popup h2 {
+    text-align: center;
+    color: #002E48;
+    margin-bottom: 20px;
+}
+
+/* Form input styling */
+#register-popup input[type="text"],
+#register-popup input[type="email"],
+#register-popup input[type="number"],
+#register-popup input[type="password"] {
+    width: 100%;
+    padding: 10px; /* Ensures consistent padding */
+    margin-bottom: 15px;
+    border: 1px solid #ccc; /* Consistent border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1em; /* Font size */
+}
+
+/* Buttons styling */
+#register-popup .btn-register,
+#register-popup .btn-close {
+    width: 48%;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Register button styling */
+#register-popup .btn-register {
+    background-color: #004C6D;
+    color: white;
+    border: none;
+}
+
+#register-popup .btn-register:hover {
+    background-color: #006083;
+}
+
+/* Close button styling */
+#register-popup .btn-close {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    margin-left: 4%;
+}
+
+#register-popup .btn-close:hover {
+    background-color: #999;
+}
+
+/* Flex container for buttons */
+#register-popup .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* Popup form */
+.popup-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 80%; /* Adjusted for mobile responsiveness */
+    max-width: 300px; /* Max width for larger screens */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Form input styling */
+.popup-form input {
+    display: block;
+    width: calc(100% - 20px); /* Adjust for padding */
+    margin: 10px 0; /* Space between inputs */
+    padding: 8px;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1em; /* Font size */
+}
+
+/* Info window content styling */
+.info-window-content {
+    font-size: 16px;
+    color: #333;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    max-width: 200px; /* Ensures content doesn't overflow */
+    white-space: nowrap;
+}
+
+.info-window-content h5 {
+    color: #004C6D;
+    font-weight: bold;
+    margin: 0;
+    font-size: 18px; /* Larger font for name */
+}
+
+.info-window-content p {
+    margin: 5px 0 0 0;
+}
+
+/* Navigation link styling */
 nav a {
     color: white;
     margin: 0 1em;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
+nav a:hover {
+    color: #FFD700;
+}
+
+/* Card-style sections */
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px 0;
+    color: #002E48;
+}
+
+/* Dropdown and Reset Button Styling */
+#quick-time {
+    width: 150px;
+}
+
+#reset-time {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #FFD700;
+    border: none;
+    color: #002E48;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+#reset-time:hover {
+    background-color: #FFC107;
+}
+
+/* Additional spacing for dropdown and button */
+.d-flex > .form-control, .d-flex > .btn {
+    margin: 0 0.5em;
+}
+
+/* Map container styling */
 #map {
     height: 300px;
+    width: 100%;
     margin: 1em 0;
 }
 
+/* Loading spinner styling */
+#loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+/* Form section with padding and centered text */
 #form-section {
     padding: 1em;
     background-color: #004C6D;
     text-align: center;
+    border-radius: 8px;
 }
 
+/* Flexbox styling for time selector with spacing */
 .time-selector {
     display: flex;
     justify-content: center;
     gap: 1em;
+    margin-top: 1em;
 }
 
+/* Wheel styling for hours and minutes */
+/* Time Wheel Styling Adjustments for better touch response */
 .wheel {
-    width: 120px; /* Updated size for better thumb accessibility */
-    height: 120px;
+    width: 130px;
+    height: 130px;
     border: 2px solid #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em; /* Larger font for readability */
+    font-size: 1.8em;
     color: #002E48;
     background-color: white;
     cursor: pointer;
-    user-select: none; /* Prevents text selection when dragging */
-    touch-action: none; /* Improves touch interaction */
+    user-select: none;
+    touch-action: none; /* Prevent default scrolling behavior on touch devices */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.wheel:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.wheel:active {
+    transform: scale(1.1);
+}
+
+
+/* Button styling to match OPARKO color scheme */
+.btn-primary {
+    background-color: #004C6D;
+    border-color: #004C6D;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #006083;
+    transform: scale(1.05);
+}
+
+/* Validation Message Styling */
+#plate-validation-message {
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+}
+
+#plate-validation-message.invalid {
+    color: red;
+}
+
+#plate-validation-message.valid {
+    color: green;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #004C6D;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    color: white;
+    z-index: 1000;
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #004C6D;
+    padding: 10px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+}
+
+.close-btn {
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+/* Validation message for login form */
+.validation-message {
+    font-size: 0.9em;
+    margin-top: 5px;
+    color: red;
+}
+
+/* Floating Action Button (FAB) Styling */
+.fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #004C6D;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.fab:hover {
+    background-color: #006083;
+}
+
+/* Fade-in animation for page elements */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .wheel {
+        width: 130px;
+        height: 130px;
+        font-size: 1.5em;
+    }
+
+    .btn-primary {
+        font-size: 1em;
+        padding: 8px 16px; /* Adjust padding for better touch targets */
+    }
+
+    .btn-link {
+        flex: 1; /* Make buttons take equal space */
+        text-align: center; /* Center text in buttons */
+    }
+
+    nav {
+        flex-direction: column; /* Stack buttons vertically on smaller screens */
+    }
+
+    nav a {
+        margin: 0.5em 0; /* Adjust margin for vertical alignment */
+    }
+}
