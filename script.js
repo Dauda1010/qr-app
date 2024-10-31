@@ -214,30 +214,31 @@ minuteWheel.addEventListener("wheel", (event) => {
     updateWheels();
 });
 
-// Add click and drag functionality for hour and minute wheels
+// Add click and drag functionality for hour and minute wheels (Mouse and Touch support)
 let isDragging = false;
 let startY = 0;
 let draggedWheel = null;
 
-// Function to handle mouse down
-function handleMouseDown(event, wheel) {
+// Function to handle mouse or touch start
+function handleStart(event, wheel) {
     isDragging = true;
-    startY = event.clientY;
-    draggedWheel = wheel; // Track which wheel is being dragged
+    startY = event.clientY || event.touches[0].clientY;
+    draggedWheel = wheel;
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleEnd);
+    document.addEventListener('touchmove', handleMove);
+    document.addEventListener('touchend', handleEnd);
 }
 
-// Function to handle mouse move
-function handleMouseMove(event) {
+// Function to handle mouse or touch move
+function handleMove(event) {
     if (!isDragging || !draggedWheel) return;
 
-    // Calculate the difference in Y movement
-    const diffY = event.clientY - startY;
+    const currentY = event.clientY || event.touches[0].clientY;
+    const diffY = currentY - startY;
 
-    // Update start position
-    startY = event.clientY;
+    startY = currentY;
 
     // Increment or decrement based on drag direction
     if (diffY < 0) {
@@ -247,12 +248,15 @@ function handleMouseMove(event) {
     }
 }
 
-// Function to handle mouse up
-function handleMouseUp() {
+// Function to handle mouse or touch end
+function handleEnd() {
     isDragging = false;
     draggedWheel = null;
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
+
+    document.removeEventListener('mousemove', handleMove);
+    document.removeEventListener('mouseup', handleEnd);
+    document.removeEventListener('touchmove', handleMove);
+    document.removeEventListener('touchend', handleEnd);
 }
 
 // Functions to increment/decrement the wheel values
@@ -274,9 +278,15 @@ function decrementWheel(wheel) {
     updateWheels();
 }
 
-// Attach the mouse down event to each wheel
-hourWheel.addEventListener('mousedown', (event) => handleMouseDown(event, hourWheel));
-minuteWheel.addEventListener('mousedown', (event) => handleMouseDown(event, minuteWheel));
+// Attach the mouse down and touch start event to each wheel
+hourWheel.addEventListener('mousedown', (event) => handleStart(event, hourWheel));
+minuteWheel.addEventListener('mousedown', (event) => handleStart(event, minuteWheel));
+hourWheel.addEventListener('touchstart', (event) => handleStart(event, hourWheel));
+minuteWheel.addEventListener('touchstart', (event) => handleStart(event, minuteWheel));
+
+// Ensure the browser doesn’t mistakenly select text while dragging the wheel
+hourWheel.addEventListener('dragstart', (event) => event.preventDefault());
+minuteWheel.addEventListener('dragstart', (event) => event.preventDefault());
 
 // Reset time to zero
 document.getElementById("reset-time").addEventListener("click", () => {
@@ -295,6 +305,7 @@ document.getElementById("quick-time").addEventListener("change", (event) => {
 
 // Initialize display for time wheels
 updateWheels();
+
 
 // Add title to registration form
 const registerPopup = document.getElementById("register-popup");
