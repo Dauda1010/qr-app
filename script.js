@@ -65,6 +65,55 @@ function initMap() {
     });
 }
 
+
+    // Code necesarry for backend/database
+document.getElementById("register-form").addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent page refresh
+
+    // Get form values
+    const name = document.getElementById("register-name").value.trim();
+    const password = document.getElementById("register-password").value.trim();
+    let phone = document.getElementById("register-phone").value.trim();
+
+    // Ensure all fields are filled
+    if (!name || !password || !phone) {
+        alert('All fields are required!');
+        return;
+    }
+
+    // Parse phone number to integer
+    phone = parseInt(phone, 10);
+    if (isNaN(phone)) {
+        alert('Phone number must be numeric.');
+        return;
+    }
+
+    // Send the data to the backend using fetch
+    try {
+        const response = await fetch('http://localhost:3000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, password, phone })
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert(result.message);
+            // Clear the form
+            document.getElementById("register-form").reset();
+        } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.error}`);
+        }
+    } catch (err) {
+        alert('Failed to connect to the server');
+    }
+});
+
+
+
 // License Plate Validation
 function validateLicensePlate(plate) {
     const platePattern = /^[A-Z]{2}\d{1,5}$/;
@@ -140,9 +189,17 @@ let currentHour = 0, currentMinute = 0;
 function updateWheels() {
     hourWheel.textContent = `${currentHour} Hours`;
     minuteWheel.textContent = `${currentMinute} Minutes`;
+    updatePrice(); // Update the price whenever the wheels are updated
 }
 
-// Mouse down event for dragging the hour wheel
+// Function to calculate and display the parking price
+function updatePrice() {
+    const totalMinutes = currentHour * 60 + currentMinute;
+    const price = Math.ceil(totalMinutes / 30) * 12;
+    document.getElementById("parking-price").textContent = `Price: ${price} DKK`;
+}
+
+// Wheel scroll event for the hour wheel
 hourWheel.addEventListener("wheel", (event) => {
     event.preventDefault();
     currentHour += Math.sign(event.deltaY);
@@ -151,7 +208,7 @@ hourWheel.addEventListener("wheel", (event) => {
     updateWheels();
 });
 
-// Mouse down event for dragging the minute wheel
+// Wheel scroll event for the minute wheel
 minuteWheel.addEventListener("wheel", (event) => {
     event.preventDefault();
     currentMinute += Math.sign(event.deltaY);
@@ -177,3 +234,12 @@ document.getElementById("quick-time").addEventListener("change", (event) => {
 
 // Initialize display for time wheels
 updateWheels();
+
+
+// Add title to registration form
+const registerPopup = document.getElementById("register-popup");
+const registerTitle = document.createElement("h2");
+registerTitle.textContent = "Register New User";
+registerTitle.style.textAlign = "center";
+registerTitle.style.color = "#002E48";
+registerPopup.insertBefore(registerTitle, registerPopup.firstChild);
