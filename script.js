@@ -65,8 +65,7 @@ function initMap() {
     });
 }
 
-
-    // Code necesarry for backend/database
+// Code necessary for backend/database
 document.getElementById("register-form").addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevent page refresh
 
@@ -90,7 +89,7 @@ document.getElementById("register-form").addEventListener("submit", async (event
 
     // Send the data to the backend using fetch
     try {
-        const response = await fetch('http://localhost:3000/register', {
+        const response = await fetch('https://parking-backend-edoy.onrender.com', { // Render URL to deploy backend
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -111,8 +110,6 @@ document.getElementById("register-form").addEventListener("submit", async (event
         alert('Failed to connect to the server');
     }
 });
-
-
 
 // License Plate Validation
 function validateLicensePlate(plate) {
@@ -217,6 +214,70 @@ minuteWheel.addEventListener("wheel", (event) => {
     updateWheels();
 });
 
+// Add click and drag functionality for hour and minute wheels
+let isDragging = false;
+let startY = 0;
+let draggedWheel = null;
+
+// Function to handle mouse down
+function handleMouseDown(event, wheel) {
+    isDragging = true;
+    startY = event.clientY;
+    draggedWheel = wheel; // Track which wheel is being dragged
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+}
+
+// Function to handle mouse move
+function handleMouseMove(event) {
+    if (!isDragging || !draggedWheel) return;
+
+    // Calculate the difference in Y movement
+    const diffY = event.clientY - startY;
+
+    // Update start position
+    startY = event.clientY;
+
+    // Increment or decrement based on drag direction
+    if (diffY < 0) {
+        incrementWheel(draggedWheel);
+    } else if (diffY > 0) {
+        decrementWheel(draggedWheel);
+    }
+}
+
+// Function to handle mouse up
+function handleMouseUp() {
+    isDragging = false;
+    draggedWheel = null;
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+}
+
+// Functions to increment/decrement the wheel values
+function incrementWheel(wheel) {
+    if (wheel.id === "hour-wheel") {
+        currentHour = (currentHour + 1) % 24;
+    } else if (wheel.id === "minute-wheel") {
+        currentMinute = (currentMinute + 1) % 60;
+    }
+    updateWheels();
+}
+
+function decrementWheel(wheel) {
+    if (wheel.id === "hour-wheel") {
+        currentHour = (currentHour - 1 + 24) % 24;
+    } else if (wheel.id === "minute-wheel") {
+        currentMinute = (currentMinute - 1 + 60) % 60;
+    }
+    updateWheels();
+}
+
+// Attach the mouse down event to each wheel
+hourWheel.addEventListener('mousedown', (event) => handleMouseDown(event, hourWheel));
+minuteWheel.addEventListener('mousedown', (event) => handleMouseDown(event, minuteWheel));
+
 // Reset time to zero
 document.getElementById("reset-time").addEventListener("click", () => {
     currentHour = 0;
@@ -234,7 +295,6 @@ document.getElementById("quick-time").addEventListener("change", (event) => {
 
 // Initialize display for time wheels
 updateWheels();
-
 
 // Add title to registration form
 const registerPopup = document.getElementById("register-popup");
